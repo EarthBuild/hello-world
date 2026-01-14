@@ -25,7 +25,7 @@ jobs:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: EarthBuild/actions-setup@283e405e3e95c613c33ab9dd2cb49bd3a503809c
+      - uses: EarthBuild/actions-setup@8da49a810dbfb79c710aa3e723ebd106628836b8
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           version: 'latest'
