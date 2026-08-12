@@ -1,0 +1,33 @@
+name: 'ci'
+on:
+  pull_request:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'main'
+      - 'releases/*'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  ci:
+    name: earthly +hello
+    permissions:
+      contents: read
+    env:
+      FORCE_COLOR: 1
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: EarthBuild/actions-setup@8da49a810dbfb79c710aa3e723ebd106628836b8
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          version: 'latest'
+          prerelease: true
+      - run: earthly +hello
